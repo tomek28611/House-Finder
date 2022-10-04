@@ -1,23 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Finder</title>
-</head>
-
-<body>
+<% layout('layouts/boilerplate')%>
     <h1>ALL HOUSES</h1>
     <div>
         <a href="/home-finder/new">Add New </a>
     </div>
-    <ul>
         <% for (let hfinder of hfinders) {%>
-        <li><a href="/home-finder/<%= hfinder._id %>"><%= hfinder.title %>  Location : <%= hfinder.location %>
-        ID: <%= hfinder._id %></li>
+            <div class="card" mb-3>
+                <div class="row">
+                    <div class="col-md-4">
+                        <img class="img-fluid" src="<%= hfinder.image%>" alt="">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title"><%= hfinder.title%></h5>
+                            <p class="card-text"><%= hfinder.description%>
+                                <small class="text-muted"><%= hfinder.location%></small></p>
+                                <small class="text-muted"><%= hfinder.price%></small></p>
+                            <a class="btn btn-primary" href="/home-finder/<%= hfinder._id%>">View <%= hfinder.title%></a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
             
         <% }%>
-    </ul>
-</body>
-</html>
+

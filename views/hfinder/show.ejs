@@ -1,15 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Show</title>
-</head>
-<body>
+<% layout('layouts/boilerplate')%>
     <h1>Details</h1>
     <h1><%= hfinder.title %></h1>
     <h1><%= hfinder.location %></h1>
+    <img src="<%= hfinder.image%>" alt="">
+    <p><%= hfinder.description %></p>
+    <p><%= hfinder.price %></p>
     <p>
         <a href="/home-finder/<%=hfinder._id%>/edit">Edit</a>
     </p>
@@ -21,5 +16,5 @@
         <a href="/home-finder" >All Houses</a>
     </footer>
 
-</body>
-</html>
+
+ 
