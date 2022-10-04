@@ -1,35 +1,33 @@
 <% layout('layouts/boilerplate')%>
-  
-
 
     <div class="row">
         <h1 class="text-center">Edit House</h1>
             <div class="col-6 offset-3">
-                <form action="/home-finder/<%= hfinder._id %>?_method=PUT" method="POST">
+                <form action="/home-finder/<%= hfinder._id %>?_method=PUT" method="POST" novalidate class="validated-form">
                      <div class="mb-3">
                          <label class="form-label" for="title">Title</label>
                          <input class="form-control" type="text" id="title" name="hfinder[title]"
-                         value="<%=hfinder.title%>">
+                         value="<%=hfinder.title%>"required>
                      </div>
     
                      <div class="mb-3">
                          <label class="form-label" for="location">Location</label>
                          <input class="form-control" type="text" id="title" name="hfinder[location]"
-                         value="<%=hfinder.location%>">
+                         value="<%=hfinder.location%>"required>
                      </div>
                      <div class="mb-3">
                         <label class="form-label" for="image">Image Url</label>
                         <input class="form-control" type="text" id="image" name="hfinder[image]"
-                        value="<%=hfinder.image%>">
+                        value="<%=hfinder.image%>"required>
                     </div>
                     <div class="mb-3">
                         <label class="form-label" for="price">Price</label>
                         <input class="form-control" type="text" id="price" name="hfinder[price]"
-                        value="<%=hfinder.price%>">
+                        value="<%=hfinder.price%>"required>
                     </div>
                     <div class="mb-3">
                         <label class="form-label" for="description">Description</label>
-                        <textarea class="form-control" type="text" id="description" name="hfinder[description]">
+                        <textarea class="form-control" type="text" id="description" name="hfinder[description]"required>
                         <%=hfinder.description%></textarea>
                     </div>
                      <div class="mb-3">

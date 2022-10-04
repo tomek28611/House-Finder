@@ -4,13 +4,40 @@
     <h1><%= hfinder.location %></h1>
     <img src="<%= hfinder.image%>" alt="">
     <p><%= hfinder.description %></p>
-    <p><%= hfinder.price %></p>
+    <p><%= hfinder.price %>/day</p>
+
     <p>
         <a href="/home-finder/<%=hfinder._id%>/edit">Edit</a>
     </p>
     <form action="/home-finder/<%=hfinder._id%>?_method=DELETE" method="POST">
         <button>Delete</button>
     </form>
+    <h3>Leave a review</h3>
+    <form action="/home-finder/<%=hfinder._id%>/reviews" method="POST" class="mb-3 validated-form" novalidate>
+        <div class="mb-5">
+            <label class="form-label" for="rating">Rating</label>
+            <input class="form-range" type="range" min="1" max="5" name="review[rating]" id="rating">
+        </div>
+        <div class="mb-3">
+            <label class="form-label" for="body">Review</label>
+            <textarea class="form-control" name="review[body]" id="body" cols="30" rows="3" required></textarea>
+        </div>
+        <button class="btn btn-success">Submit</button>
+    </form>
+
+    <div class="col-6">
+        <% for(let review of hfinder.reviews)  {%>
+            <div class="card mb-3">
+            <div class="card-body">
+                <h5 class="card-title">Review: <%=review.body%> </h5>
+                <p class="card-text">Rating: <%=review.rating%></p>
+                <form action="/home-finder/<%=hfinder._id%>/reviews/<%=review._id%>?_method=DELETE" method="POST">
+                <button class="btn btn-sm btn-danger">Delete</button>
+                </form>
+            </div>
+        </div>
+            <%}%>
+    </div>
     <footer>
         
         <a href="/home-finder" >All Houses</a>
