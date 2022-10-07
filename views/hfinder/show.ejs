@@ -1,7 +1,8 @@
 <% layout('layouts/boilerplate')%>
-    <h1>Details</h1>
+    <h2>Details:</h2>
     <h1><%= hfinder.title %></h1>
     <h1><%= hfinder.location %></h1>
+    <p>Posted by : <%= hfinder.author.username %></p>
     <img src="<%= hfinder.image%>" alt="">
     <p><%= hfinder.description %></p>
     <p><%= hfinder.price %>/day</p>
@@ -31,9 +32,11 @@
             <div class="card-body">
                 <h5 class="card-title">Review: <%=review.body%> </h5>
                 <p class="card-text">Rating: <%=review.rating%></p>
+   
                 <form action="/home-finder/<%=hfinder._id%>/reviews/<%=review._id%>?_method=DELETE" method="POST">
                 <button class="btn btn-sm btn-danger">Delete</button>
-                </form>
+            
+            </form>
             </div>
         </div>
             <%}%>

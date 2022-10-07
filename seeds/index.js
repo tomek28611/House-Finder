@@ -26,11 +26,13 @@ const seedDB = async () => {
     for(let i = 0; i < 50; i++ ) {
         const random1000 = Math.floor(Math.random() * 1000);
         const hfinder = new Hfinder({
+            author: '633d5a31ddf1bf148dc606d0',
             location:  `${cities[random1000].city}, ${cities[random1000].state}`,
             title: `${sample(descriptors)} ${sample(places)}`,
             description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum',
             price: '1000',
-            image: 'https://cdn.galleries.smcloud.net/t/galleries/gf-VtBa-5eY1-EKTU_projekt-domu-malutki-dr-s-664x442-nocrop.jpg'
+            image: 'https://cdn.galleries.smcloud.net/t/galleries/gf-VtBa-5eY1-EKTU_projekt-domu-malutki-dr-s-664x442-nocrop.jpg',
+            
 
         })
         await hfinder.save();
