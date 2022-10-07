@@ -1,3 +1,6 @@
+if (process.env.NODE_ENV !== 'production') {
+    require('dotenv').config();
+}
 const express = require('express');
 const path = require('path');
 const Hfinder = require('./models/hfinder');
@@ -16,6 +19,35 @@ const { remove } = require('./models/user');
 const flash = require('connect-flash');
 const userRoutes = require('./routes/users');
 const {isLoggedIn} = require('./middleware');
+const multer = require('multer');
+const { storage } = require('./cloudinary/index');
+const upload = multer({ storage });
+
+
+const imageStorage = multer.diskStorage({
+   
+    destination: 'images', 
+      filename: (req, file, cb) => {
+          cb(null, file.fieldname + '_' + Date.now() 
+             + path.extname(file.originalname))
+ 
+    }
+});
+
+
+const imageUpload = multer({
+    storage: storage,
+    limits: {
+      fileSize: 1000000 // 1000000 Bytes = 1 MB
+    },
+    fileFilter(req, file, cb) {
+      if (!file.originalname.match(/\.(png|jpg)$/)) { 
+         return cb(new Error('Please upload a Image'))
+       }
+     cb(undefined, true)
+  }
+});
+
 
 
 var mongo = require('mongodb');
@@ -143,14 +175,14 @@ app.get('/home-finder', catchAsync(async(req, res, ) => {
 app.get('/home-finder/new', isLoggedIn, (req, res) => {
     res.render('hfinder/new');
 });
-
-app.post('/home-finder', isLoggedIn,validateHfinder,catchAsync(async (req, res, next) => {
+app.post('/home-finder', imageUpload.single('image'), (async (req, res, next) => {
     const hfinder = new Hfinder(req.body.hfinder);
+    hfinder.image = req.file.path;
     hfinder.author = req.user._id;
     await hfinder.save();
+    console.log(req.file);
     req.flash('success', 'Succesfully make a new HOUSE')
     res.redirect(`/home-finder/${hfinder._id}`)
-
 }));
 
 

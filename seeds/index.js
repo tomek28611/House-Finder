@@ -23,7 +23,7 @@ const sample = array => array[Math.floor(Math.random() * array.length)];
 
 const seedDB = async () => {
     await Hfinder.deleteMany({});
-    for(let i = 0; i < 50; i++ ) {
+    for(let i = 0; i < 5; i++ ) {
         const random1000 = Math.floor(Math.random() * 1000);
         const hfinder = new Hfinder({
             author: '633d5a31ddf1bf148dc606d0',
