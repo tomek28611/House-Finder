@@ -10,7 +10,7 @@ mongoose.connect('mongodb://localhost:27017/House-Finder', {
     useNewUrlParser: true,
     // useCreateIndex: true,
     useUnifiedTopology: true
-});
+}); 
 
 
 const db = mongoose.connection;
@@ -32,7 +32,10 @@ const seedDB = async () => {
             description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum',
             price: '1000',
             image: 'https://cdn.galleries.smcloud.net/t/galleries/gf-VtBa-5eY1-EKTU_projekt-domu-malutki-dr-s-664x442-nocrop.jpg',
-            
+            geometry: {
+                type: "Point",
+                coordinates: [2.177432, 41.382894]
+            }
 
         })
         await hfinder.save();

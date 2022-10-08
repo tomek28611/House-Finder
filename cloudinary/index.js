@@ -13,7 +13,7 @@ const storage = new CloudinaryStorage({
     params: {
     folder: 'Home',
     allowedFormats: ['png', 'jpg', 'jpeg']
-    }
+    } 
 });
 
 module.exports = { cloudinary, storage };

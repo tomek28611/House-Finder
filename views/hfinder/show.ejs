@@ -1,7 +1,9 @@
 <% layout('layouts/boilerplate')%>
     <h2>Details:</h2>
+
     <h1><%= hfinder.title %></h1>
     <h1><%= hfinder.location %></h1>
+    <div id='map' style='width: 400px; height: 300px;'></div>
     <p>Posted by : <%= hfinder.author.username %></p>
     <img src="<%= hfinder.image%>" alt="">
     <p><%= hfinder.description %></p>
@@ -45,6 +47,9 @@
         
         <a href="/home-finder" >All Houses</a>
     </footer>
-
+    <script>
+        const hfinder = <%-JSON.stringify(hfinder)%>
+    </script>
+    <script src="/map.js"></script>
 
  

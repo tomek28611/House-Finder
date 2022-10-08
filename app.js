@@ -1,6 +1,6 @@
 if (process.env.NODE_ENV !== 'production') {
     require('dotenv').config();
-}
+} 
 const express = require('express');
 const path = require('path');
 const Hfinder = require('./models/hfinder');
@@ -22,8 +22,10 @@ const {isLoggedIn} = require('./middleware');
 const multer = require('multer');
 const { storage } = require('./cloudinary/index');
 const upload = multer({ storage });
-
-
+const mbxGeocoding = require("@mapbox/mapbox-sdk/services/geocoding");
+const mapBoxToken = process.env.MAPBOX_TOKEN;
+const geocoder = mbxGeocoding({ accessToken: mapBoxToken});
+ 
 const imageStorage = multer.diskStorage({
    
     destination: 'images', 
@@ -172,18 +174,33 @@ app.get('/home-finder', catchAsync(async(req, res, ) => {
 
 }));
 
+
 app.get('/home-finder/new', isLoggedIn, (req, res) => {
     res.render('hfinder/new');
 });
 app.post('/home-finder', imageUpload.single('image'), (async (req, res, next) => {
+    const geoData = await geocoder.forwardGeocode({
+        query: req.body.hfinder.location,
+        limit: 1
+    }).send();
     const hfinder = new Hfinder(req.body.hfinder);
+    hfinder.geometry = geoData.body.features[0].geometry;
     hfinder.image = req.file.path;
     hfinder.author = req.user._id;
     await hfinder.save();
-    console.log(req.file);
+    console.log(hfinder);
     req.flash('success', 'Succesfully make a new HOUSE')
     res.redirect(`/home-finder/${hfinder._id}`)
 }));
+
+app.post('/home-finder' ,async (req, res, next) => {
+
+    const geoData = await geocoder.forwardGeocode({
+        query: 'Yosemite, CA',
+        limit: 1
+    }).send()
+    console.log(geoData.body.featutres);
+});
 
 
 app.get('/home-finder/:id', catchAsync(async (req, res) => {
@@ -224,7 +241,7 @@ res.redirect('/home-finder/');
 app.post('/home-finder/:id/reviews', isLoggedIn, catchAsync(async (req, res) => {
     const hfinder = await Hfinder.findById(req.params.id);
     const review = new Review(req.body.review);
-    // review.author = req.user._id;
+    review.author = req.user._id;
     hfinder.reviews.push(review);
     await review.save();
     await hfinder.save();
