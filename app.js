@@ -25,7 +25,7 @@ const upload = multer({ storage });
 const mbxGeocoding = require("@mapbox/mapbox-sdk/services/geocoding");
 const mapBoxToken = process.env.MAPBOX_TOKEN;
 const geocoder = mbxGeocoding({ accessToken: mapBoxToken});
-const dbUrl = '';
+const dbUrl = 'mongodb+srv://admin:Maluch111902@cluster0.ijg1snb.mongodb.net/?retryWrites=true&w=majority';
 const MongoDBStore = require('connect-mongo');
  
 const imageStorage = multer.diskStorage({
