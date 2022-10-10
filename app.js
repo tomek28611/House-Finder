@@ -25,6 +25,8 @@ const upload = multer({ storage });
 const mbxGeocoding = require("@mapbox/mapbox-sdk/services/geocoding");
 const mapBoxToken = process.env.MAPBOX_TOKEN;
 const geocoder = mbxGeocoding({ accessToken: mapBoxToken});
+const dbUrl = '';
+const MongoDBStore = require('connect-mongo');
  
 const imageStorage = multer.diskStorage({
    
@@ -56,14 +58,18 @@ var mongo = require('mongodb');
 const router = express.Router();
 
 
-mongoose.connect('mongodb://localhost:27017/House-Finder', {
+mongoose.connect(dbUrl, {
 });
+
+
 
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
 db.once("open", () => {
     console.log("DB connected");
 });
+
+
 
 const sessionConfig = {
     secret: 'secret!',
@@ -76,9 +82,15 @@ const sessionConfig = {
     }
 }
 
+
+
 const app = express();
 app.use(session(sessionConfig));
 app.use(flash());
+
+app.use(session({
+    store: MongoDBStore.create({ mongoUrl: dbUrl })
+  }));
 
 app.use(passport.initialize());
 app.use(passport.session());

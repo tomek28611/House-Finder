@@ -1,0 +1,15 @@
+body {
+
+    background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+    url("https://res.cloudinary.com/dbqx6e9px/image/upload/v1665208960/Home/wdnau33f5hstr40ibgcz.jpg");
+    background-size: cover;
+    background-position: center;
+}
+.cover-container {
+    max-width: 60vw;
+}
+div {
+    text-align: center;
+
+  }
+
