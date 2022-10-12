@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/5c069052-2d23-4063-86d6-d29464413aa5/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/homefinderdemo",
+    "appService.deploySubpath": "."
+}
